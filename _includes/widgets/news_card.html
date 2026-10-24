@@ -1,15 +1,36 @@
 {% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" -%}
 
-<div class="my-3 bg-white shadow-sm rounded-xl">
+<style>
+  /* 专门针对这个卡片里的三级标题缩小字号 */
+  .services-card h3 {
+    font-size: 1.1rem !important;
+    font-weight: bold;
+    color: #333;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  /* 第一项不要顶部间距 */
+  .services-card h3:first-of-type {
+    margin-top: 0;
+  }
+  /* 列表行距优化 */
+  .services-card ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+  }
+  .services-card li {
+    margin-bottom: 0.3rem;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="my-3 bg-white shadow-sm rounded-xl services-card">
     <h6 class="p-3 mb-0 border-bottom border-gray"><i class="fas fa-briefcase"></i> Professional Services</h6>
     
-    <div class="px-4 py-3">
+    <div class="px-4 py-4 text-muted" style="font-size: 0.95rem;">
         {% for year in news_by_year %}
             {% for item in year.items %}
-            <div class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
-
                 {{ item.content | markdownify }}
-            </div>
             {% endfor %}
         {% endfor %}
     </div>
