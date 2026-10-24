@@ -41,15 +41,15 @@ education:
   logo: /assets/images/badges/Cityu.jpg
   position: >- 
     Doctor of Philosophy in Computer Science
-  date: Sept. 2020 - Oct. 2024
+  date: Sep. 2020 - Oct. 2024
 - name: Hong Kong University of Science and Technology (HKUST)
   logo: /assets/images/badges/HKUST.png
   position: M.S. in Information Technology
-  date: Sept. 2018 - Nov. 2019
+  date: Sep. 2018 - Nov. 2019
 - name: Beijing University of Posts and Telecommunications (BUPT)
   logo: /assets/images/badges/BUPT.png
   position: B.Eng. and B.M. in e-Commerce Engineering with Law (First Class Honors)
-  date: Sept. 2014 - Jun. 2018
+  date: Sep. 2014 - Jun. 2018
 
 experience:
 - name: Hong Kong Metropolitan University (HKMU)
@@ -68,6 +68,15 @@ experience:
   logo: /assets/images/badges/HKUST.png
   position: Research Assistant
   date: Sep. 2019 - Jan. 2020
+
+funding:
+- name: Adaptive Log Analysis Framework for Proactive and Secure Software Reliability
+  position: Research Grants Council (UGC/FDS16/E27/25), HK$827,287 | Principal Investigator (PI)
+- name: Enhancing Log-Based Analytics with Semantic-Aware Data Augmentation
+  position: Hong Kong Metropolitan University (RD/2025/1.24), HK$200,000 | Principal Investigator (PI)
+- name: LLM-Based Framework for Improving Requirement Traceability in Large-Scale Systems
+  position: Hong Kong Metropolitan University (RD/2025/1.21), HK$200,000 | Co-Investigator (Co-I)
+  
 awards:
 - name: Award Name 2
   date: 2024
