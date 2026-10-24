@@ -10,11 +10,11 @@ positions:
 
 email: "kxma@hkmu.edu.hk"
 # cv_link: link-to-your-cv-file
-gscholar: xFmQpf4AAAAJ  # This is an example, replace it with your own Google Scholar ID
-github: xiaoxuemakayley
-twitter: your_twitter_id  # Do not include the '@' symbol
+gscholar: https://scholar.google.com/citations?user=SD77yYkAAAAJ&hl=en&oi=ao  # This is an example, replace it with your own Google Scholar ID
+#github: xiaoxuemakayley
+#twitter: your_twitter_id  # Do not include the '@' symbol
 # linkedin: your-linked-in-id
-# orcid: 0000-0000-0000-0000
+orcid: 0000-0002-5476-6074
 
 short_bio_text_justify: false
 short_bio: >-
