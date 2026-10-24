@@ -69,18 +69,18 @@ experience:
   position: Research Assistant
   date: Sep. 2019 - Jan. 2020
 
-funding:
-- name: Adaptive Log Analysis Framework for Proactive and Secure Software Reliability
-  position: Research Grants Council (UGC/FDS16/E27/25), HK$827,287 | Principal Investigator (PI)
-- name: Enhancing Log-Based Analytics with Semantic-Aware Data Augmentation
-  position: Hong Kong Metropolitan University (RD/2025/1.24), HK$200,000 | Principal Investigator (PI)
-- name: LLM-Based Framework for Improving Requirement Traceability in Large-Scale Systems
-  position: Hong Kong Metropolitan University (RD/2025/1.21), HK$200,000 | Co-Investigator (Co-I)
-  
 awards:
-- name: Award Name 2
-  date: 2024
-- name: Award Name 1 
-  date: 2021
-- name: A quick brown fox jumps over the lazy dog and runs away award
-  date: 2021
+- name: Adaptive Log Analysis Framework for Proactive and Secure Software Reliability
+  position: RGC (UGC/FDS16/E27/25), HK$827,287 | PI
+- name: Enhancing Log-Based Analytics with Semantic-Aware Data Augmentation
+  position: HKMU (RD/2025/1.24), HK$200,000 | PI
+- name: LLM-Based Framework for Improving Requirement Traceability in Large-Scale Systems
+  position: HKMU (RD/2025/1.21), HK$200,000 | Co-I
+  
+#awards:
+#- name: Award Name 2
+#  date: 2024
+#- name: Award Name 1 
+#  date: 2021
+#- name: A quick brown fox jumps over the lazy dog and runs away award
+#  date: 2021
