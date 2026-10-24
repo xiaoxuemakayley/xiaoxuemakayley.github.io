@@ -38,16 +38,13 @@ portrait_width: 80%
 
 education:
 - name: City University of Hong Kong (CityU)
-  # logo: /assets/images/badges/MIT_Social_circle.png
   position: >- 
     Doctor of Philosophy in Computer Science
   date: Sept. 2020 - Oct. 2024
 - name: Hong Kong University of Science and Technology (HKUST)
-  # logo: /assets/images/badges/HKUST_logo.png
   position: M.S. in Information Technology
   date: Sept. 2018 - Nov. 2019
 - name: Beijing University of Posts and Telecommunications (BUPT)
-  # logo: /assets/images/badges/BUPT_logo.png
   position: B.Eng. and B.M. in e-Commerce Engineering with Law (First Class Honors)
   date: Sept. 2014 - Jun. 2018
 
@@ -59,19 +56,15 @@ education:
 
 experience:
 - name: Hong Kong Metropolitan University (HKMU)
-  # logo: /assets/images/badges/HKMU_logo.png
   position: Senior Lecturer
   date: Dec. 2025 - Present
 - name: Hong Kong Metropolitan University (HKMU)
-  # logo: /assets/images/badges/HKMU_logo.png
   position: Lecturer
   date: Oct. 2024 - Dec. 2025
 - name: University College London (UCL)
-  # logo: /assets/images/badges/UCL_logo.png
   position: Visiting Researcher
   date: Mar. 2023 - Aug. 2023
 - name: Hong Kong University of Science and Technology (HKUST)
-  # logo: /assets/images/badges/HKUST_logo.png
   position: Research Assistant
   date: Sep. 2019 - Jan. 2020
 awards:
