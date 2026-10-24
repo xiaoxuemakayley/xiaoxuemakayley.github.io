@@ -1,18 +1,17 @@
 ---
-title: "CASMS: Combining clustering with attention semantic model for identifying security bug reports"
-date: 2022-01-01 00:00:00 +0800
+title: "ATTSUM: A Deep Attention-Based Summarization Model for Bug Report Title Generation"
 selected: true
-pub: "Information and Software Technology (IST)"
-pub_date: "2022"
+pub: "IEEE Transactions on Reliability (TR)"
+pub_date: "2023"
 abstract: >-
-  A novel approach combining clustering with an attention semantic model to identify security bug reports.
+  Introduces ATTSUM, a deep attention-based summarization model designed for generating bug report titles.
 authors:
   - "**Xiaoxue Ma**"
   - Jacky Keung
-  - Zhen Yang
   - Xiao Yu
+  - Huiqi Zou
+  - Jingyu Zhang
   - Yishu Li
-  - Hao Zhang
 links:
-  Paper: "填上链接"
+  Paper: "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10025567"
 ---
