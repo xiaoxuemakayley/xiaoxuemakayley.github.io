@@ -52,19 +52,19 @@
                     </div>
                     {% endif %}
 
-                    <!-- 3. Research Funding (全宽，去掉 small 类，字体大小与学校名一致) -->
+                    <!-- 3. Research Funding (全宽) -->
                     {% if site.data.profile.awards %}
                     <div class="col-12 mb-2 mt-3">
                         <div class="mx-2 my-1">
                             <h6>Research Funding</h6>
-                            <!-- 去掉了这里的 small 类 -->
+                            <!-- 保持正常大小 -->
                             <ul class="list pl-3 mb-1">
                                 {% for item in site.data.profile.awards %}
                                 <li class="mb-2">
-                                    <!-- 项目名不加粗，正常字体大小 -->
+                                    <!-- 项目名保持正常黑色 -->
                                     <div>{{ item.name }}</div>
-                                    <!-- 金额和角色，字体大小也正常 -->
-                                    <div class="text-muted" style="font-size: 1rem;">
+                                    <!-- 金额和角色：字体大小与 Service 一致（0.95rem），变浅灰色 -->
+                                    <div class="text-muted" style="font-size: 0.95rem;">
                                         {{ item.position }}
                                     </div>
                                 </li>
