@@ -20,11 +20,13 @@ short_bio_text_justify: false
 short_bio: >-
   <p>
     I am a Senior Lecturer at the School of Science and Technology, Hong Kong Metropolitan University. 
-    Prior to joining HKMU, I received my Ph.D. from City University of Hong Kong under the supervision of Jacky Keung, 
+    Prior to joining HKMU, I received my Ph.D. from City University of Hong Kong under the supervision of 
+    <a href="https://scholars.cityu.edu.hk/en/persons/jwkeung/" target="_blank">Prof. Jacky Keung</a>, 
     my M.Sc. from the Hong Kong University of Science and Technology, 
     and my B.E. and B.M. from Beijing University of Posts and Telecommunications. 
     During my doctoral studies, I served as a visiting researcher at UCL for six months, 
-    supervised by Federica Sarro and Earl T. Barr.
+    supervised by <a href="http://www0.cs.ucl.ac.uk/staff/F.Sarro/" target="_blank">Prof. Federica Sarro</a> and 
+    <a href="https://earlbarr.com/" target="_blank">Earl T. Barr</a>.
   </p>
   <p>
   My primary research interests lie in Intelligent Software Engineering, 
