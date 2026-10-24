@@ -38,13 +38,16 @@ portrait_width: 80%
 
 education:
 - name: City University of Hong Kong (CityU)
+  logo: /assets/images/badges/HKMU.png
   position: >- 
     Doctor of Philosophy in Computer Science
   date: Sept. 2020 - Oct. 2024
 - name: Hong Kong University of Science and Technology (HKUST)
+  logo: /assets/images/badges/HKMU.png
   position: M.S. in Information Technology
   date: Sept. 2018 - Nov. 2019
 - name: Beijing University of Posts and Telecommunications (BUPT)
+  logo: /assets/images/badges/HKMU.png
   position: B.Eng. and B.M. in e-Commerce Engineering with Law (First Class Honors)
   date: Sept. 2014 - Jun. 2018
 
