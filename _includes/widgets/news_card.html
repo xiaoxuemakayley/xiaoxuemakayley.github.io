@@ -6,8 +6,8 @@
     <div class="px-4 py-3">
         {% for year in news_by_year %}
             {% for item in year.items %}
-            
-            <div class="text-muted" style="font-size: 0.875rem; line-height: 1.5;">
+            <div class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
+
                 {{ item.content | markdownify }}
             </div>
             {% endfor %}
