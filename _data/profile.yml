@@ -27,8 +27,8 @@ short_bio: >-
     supervised by Federica Sarro and Earl T. Barr.
   </p>
   <p>
-My primary research interests lie in Intelligent Software Engineering, 
-Software Security and Reliability, and the intersection of Computer Science and AI in education.
+  My primary research interests lie in Intelligent Software Engineering, 
+  Software Security and Reliability, and the intersection of Computer Science and AI in education.
   </p>
 
 portrait_url: /assets/images/Profile.jpg
@@ -38,7 +38,7 @@ portrait_width: 80%
 
 education:
 - name: City University of Hong Kong (CityU)
-  logo: /assets/images/badges/MIT_Social_circle.png
+  # logo: /assets/images/badges/MIT_Social_circle.png
   position: >- 
     Doctor of Philosophy in Computer Science
   date: Sept. 2020 - Oct. 2024
