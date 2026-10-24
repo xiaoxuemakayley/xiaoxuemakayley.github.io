@@ -1,11 +1,10 @@
 ---
 title: "On the Influence of Data Resampling for Deep Learning-Based Log Anomaly Detection: Insights and Recommendations"
-date: 2025-01-03 00:00:00 +0800
 selected: true
 pub: "IEEE Transactions on Software Engineering (TSE)"
 pub_date: "2025"
 abstract: >-
-  Insights and recommendations on the influence of data resampling techniques for deep learning-based log anomaly detection.
+  This study provides an in-depth analysis of the impact of diverse data resampling methods on Deep Learning-based Log Anomaly Detection (DLLAD) under severe class imbalance. Our findings indicate that oversampling generally outperforms undersampling and hybrid methods, and applying resampling on raw data yields superior results compared to the feature space. These insights offer actionable recommendations for researchers and practitioners to enhance DLLAD performance.
 authors:
   - <b>Xiaoxue Ma</b>
   - Huiqi Zou
@@ -15,5 +14,5 @@ authors:
   - Yishu Li
   - Federica Sarro
 links:
-  Paper: "填上链接"
+  Paper: "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10786877"
 ---
