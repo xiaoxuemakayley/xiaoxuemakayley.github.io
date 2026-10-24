@@ -29,8 +29,8 @@ short_bio: >-
 
 portrait_url: /assets/images/Profile.jpg
 portrait_width: 80%
-portrait_caption: >-
-  Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+# portrait_caption: >-
+  # Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
 education:
 - name: Massachusetts Institute of Technology
