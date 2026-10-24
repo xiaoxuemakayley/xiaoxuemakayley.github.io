@@ -1,7 +1,7 @@
 ---
 title: "CASMS: Combining clustering with attention semantic model for identifying security bug reports"
 date: 2022-01-01 00:00:00 +0800
-selected: false
+selected: true
 pub: "Information and Software Technology (IST)"
 pub_date: "2022"
 abstract: >-
