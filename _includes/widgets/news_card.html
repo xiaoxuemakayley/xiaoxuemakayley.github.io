@@ -3,19 +3,14 @@
 <div class="my-3 bg-white shadow-sm rounded-xl">
     <h6 class="p-3 mb-0 border-bottom border-gray"><i class="fas fa-briefcase"></i> Professional Services</h6>
     
-    <div class="px-4 py-3 small">
+    <div class="px-4 py-3">
         {% for year in news_by_year %}
-        <div class="media py-2 {% if not_first -%}border-top border-gray{%- endif %}">
-            {% assign not_first = true %}
+            {% for item in year.items %}
             
-            <div class="media-body">
-                {% for item in year.items %}
-                <div class="text-muted mb-3" style="line-height: 1.6;">
-                    {{ item.content | markdownify }}
-                </div>
-                {% endfor %}
+            <div class="text-muted" style="font-size: 0.875rem; line-height: 1.5;">
+                {{ item.content | markdownify }}
             </div>
-        </div>
+            {% endfor %}
         {% endfor %}
     </div>
 </div>
