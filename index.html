@@ -4,11 +4,73 @@ title : Homepage
 navbar_title: Home
 ---
 
+<!-- 小马的专用样式 -->
+<style>
+  .llama-wrapper {
+    position: relative;
+    display: inline-block;
+    float: right; /* 让小马靠右浮动，不挡文字 */
+    margin-right: 20px;
+    margin-top: 10px;
+    cursor: pointer; /* 鼠标放上去变小手 */
+  }
+
+  .pixel-llama {
+    width: 64px; 
+    image-rendering: pixelated; /* 保持像素锐利 */
+    animation: float 2s ease-in-out infinite; /* 原地上下浮动动画 */
+    transition: transform 0.2s;
+  }
+
+  /* 鼠标悬停时，小马变大一点 */
+  .llama-wrapper:hover .pixel-llama {
+    transform: scale(1.1);
+  }
+
+  .llama-bubble {
+    position: absolute;
+    top: -25px;
+    right: 20px;
+    background: #fce4ec;
+    color: #333;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-family: monospace;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    /* 默认隐藏，鼠标放上去才显示 */
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .llama-wrapper:hover .llama-bubble {
+    opacity: 1;
+  }
+
+  /* 定义上下浮动动画 */
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+</style>
+
 <div class="row">
     <div class="col-lg-3 col-md-4">
         {% include widgets/profile_card_mini.html %}
     </div>
     <div class="col-lg-9 col-md-8">
+
+        <!-- ================= 小马代码开始 ================= -->
+        <div class="llama-wrapper" id="myLlama">
+            <!-- 气泡提示语，你可以自己改字 -->
+            <div class="llama-bubble">Cite more papers!</div>
+            <!-- 注意：这里的图片路径请根据你的实际情况修改 -->
+            <img src="/assets/images/llama.png" alt="Pixel Llama" class="pixel-llama">
+        </div>
+        <!-- ================= 小马代码结束 ================= -->
 
         {% include widgets/profile_card_bio_only.html %}
 
@@ -37,3 +99,27 @@ navbar_title: Home
         {% endif %}
     </div>
 </div>
+
+<!-- 加一个小小的点击彩蛋 -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const llama = document.getElementById('myLlama');
+    const bubble = llama.querySelector('.llama-bubble');
+    const messages = ["Baa!", "Need funding!", "Reviewer 2 is here.", "Cite more!"];
+    let clickCount = 0;
+
+    llama.addEventListener('click', function() {
+      // 每次点击，随机换一句话
+      bubble.textContent = messages[clickCount % messages.length];
+      clickCount++;
+      
+      // 让气泡闪一下
+      bubble.style.opacity = '1';
+      setTimeout(() => {
+        if(!llama.matches(':hover')) {
+            bubble.style.opacity = '0';
+        }
+      }, 2000);
+    });
+  });
+</script>
