@@ -5,21 +5,17 @@ navbar_title: Home
 ---
 
 <style>
-  /* 全屏乱跑的小马样式 */
+  /* 只横着跑的小马样式 */
   #wandering-llama {
-    position: fixed; /* 固定在窗口，不随页面滚动 */
+    position: fixed; 
     width: 64px; 
     image-rendering: pixelated; /* 保持像素锐利 */
-    z-index: 9999; /* 保证在最上层 */
-    pointer-events: none; /* 关键：鼠标穿透，不影响你点击网页上的链接 */
-    transition: transform 0.1s; /* 转身动画的平滑过渡 */
-    /* 初始位置在屏幕外，等待 JS 启动 */
+    z-index: 9999; 
+    pointer-events: none; /* 鼠标穿透，不挡点击 */
+    /* 固定在屏幕最底部（距离底部 10px） */
+    bottom: 10px; 
     left: -100px; 
-    top: 50%;
   }
-  
-  /* 如果你想让小马能点击，就打开下面这行注释，并删掉上面的 pointer-events: none; */
-  /* #wandering-llama { pointer-events: auto; cursor: pointer; } */
 </style>
 
 <div class="row">
@@ -56,70 +52,41 @@ navbar_title: Home
     </div>
 </div>
 
-<!-- ================= 小马乱跑引擎 (JS) ================= -->
+<!-- ================= 小马横向漫步引擎 (JS) ================= -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. 创建小马图片元素
     const llama = document.createElement('img');
     llama.id = 'wandering-llama';
-    // ⚠️ 请确保这里的路径正确！指向你存放的小马图片
-    llama.src = '/assets/images/horse.png'; 
+    // ⚠️ 请确保这里的路径正确！
+    llama.src = '/assets/images/llama.png'; 
     document.body.appendChild(llama);
 
-    // 2. 设置初始位置和速度
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
-    
-    // 速度：值越大跑得越快。可以改成 2 或 3 测试
-    let vx = 1; 
-    let vy = 1; 
-    
+    let x = 0;
+    let speed = 1.2; // 修改这个数字可以改变小马的速度
     const llamaWidth = 64;
-    const llamaHeight = 64;
 
-    // 3. 动画循环
     function moveLlama() {
-      // 窗口尺寸（防止改变窗口大小后小马跑出界）
+      // 获取浏览器窗口宽度
       const maxX = window.innerWidth - llamaWidth;
-      const maxY = window.innerHeight - llamaHeight;
+      
+      // 每次向右移动
+      x += speed;
 
-      // 更新坐标
-      x += vx;
-      y += vy;
-
-      // 边界碰撞检测（碰到边缘反弹）
-      if (x <= 0) {
-        x = 0;
-        vx = -vx; // 向右走
-      } else if (x >= maxX) {
-        x = maxX;
-        vx = -vx; // 向左走
+      // 如果走出了右边界，就瞬间回到左侧重新走
+      // （或者让它往回走：if (x > maxX) speed = -speed; ）
+      if (x > maxX) {
+          x = -llamaWidth; // 从最左侧外面重新出现
       }
 
-      if (y <= 0) {
-        y = 0;
-        vy = -vy; // 向下走
-      } else if (y >= maxY) {
-        y = maxY;
-        vy = -vy; // 向上走
-      }
+      // 如果你的小马图片本来是朝左的，现在向右走，我们就把它水平翻转
+      llama.style.transform = 'scaleX(-1)'; 
 
-      // 改变小马朝向（如果向左走，就水平翻转图片）
-      if (vx < 0) {
-        llama.style.transform = 'scaleX(1)'; // 原图朝左或朝右取决于你的画
-      } else {
-        llama.style.transform = 'scaleX(-1)'; 
-      }
-
-      // 应用新坐标
+      // 更新位置
       llama.style.left = x + 'px';
-      llama.style.top = y + 'px';
 
-      // 请求下一帧
       requestAnimationFrame(moveLlama);
     }
 
-    // 启动动画
     moveLlama();
   });
 </script>
