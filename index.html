@@ -4,57 +4,22 @@ title : Homepage
 navbar_title: Home
 ---
 
-<!-- 小马的专用样式 -->
 <style>
-  .llama-wrapper {
-    position: relative;
-    display: inline-block;
-    float: right; /* 让小马靠右浮动，不挡文字 */
-    margin-right: 20px;
-    margin-top: 10px;
-    cursor: pointer; /* 鼠标放上去变小手 */
-  }
-
-  .pixel-llama {
+  /* 全屏乱跑的小马样式 */
+  #wandering-llama {
+    position: fixed; /* 固定在窗口，不随页面滚动 */
     width: 64px; 
     image-rendering: pixelated; /* 保持像素锐利 */
-    animation: float 2s ease-in-out infinite; /* 原地上下浮动动画 */
-    transition: transform 0.2s;
+    z-index: 9999; /* 保证在最上层 */
+    pointer-events: none; /* 关键：鼠标穿透，不影响你点击网页上的链接 */
+    transition: transform 0.1s; /* 转身动画的平滑过渡 */
+    /* 初始位置在屏幕外，等待 JS 启动 */
+    left: -100px; 
+    top: 50%;
   }
-
-  /* 鼠标悬停时，小马变大一点 */
-  .llama-wrapper:hover .pixel-llama {
-    transform: scale(1.1);
-  }
-
-  .llama-bubble {
-    position: absolute;
-    top: -25px;
-    right: 20px;
-    background: #fce4ec;
-    color: #333;
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    font-family: monospace;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-    /* 默认隐藏，鼠标放上去才显示 */
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-  }
-
-  .llama-wrapper:hover .llama-bubble {
-    opacity: 1;
-  }
-
-  /* 定义上下浮动动画 */
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0); }
-  }
+  
+  /* 如果你想让小马能点击，就打开下面这行注释，并删掉上面的 pointer-events: none; */
+  /* #wandering-llama { pointer-events: auto; cursor: pointer; } */
 </style>
 
 <div class="row">
@@ -62,15 +27,6 @@ navbar_title: Home
         {% include widgets/profile_card_mini.html %}
     </div>
     <div class="col-lg-9 col-md-8">
-
-        <!-- ================= 小马代码开始 ================= -->
-        <div class="llama-wrapper" id="myLlama">
-            <!-- 气泡提示语，你可以自己改字 -->
-            <div class="llama-bubble">Cite more papers!</div>
-            <!-- 注意：这里的图片路径请根据你的实际情况修改 -->
-            <img src="/assets/images/horse.png" alt="Pixel Llama" class="pixel-llama">
-        </div>
-        <!-- ================= 小马代码结束 ================= -->
 
         {% include widgets/profile_card_bio_only.html %}
 
@@ -100,26 +56,70 @@ navbar_title: Home
     </div>
 </div>
 
-<!-- 加一个小小的点击彩蛋 -->
+<!-- ================= 小马乱跑引擎 (JS) ================= -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const llama = document.getElementById('myLlama');
-    const bubble = llama.querySelector('.llama-bubble');
-    const messages = ["Baa!", "Need funding!", "Reviewer 2 is here.", "Cite more!"];
-    let clickCount = 0;
+    // 1. 创建小马图片元素
+    const llama = document.createElement('img');
+    llama.id = 'wandering-llama';
+    // ⚠️ 请确保这里的路径正确！指向你存放的小马图片
+    llama.src = '/assets/images/horse.png'; 
+    document.body.appendChild(llama);
 
-    llama.addEventListener('click', function() {
-      // 每次点击，随机换一句话
-      bubble.textContent = messages[clickCount % messages.length];
-      clickCount++;
-      
-      // 让气泡闪一下
-      bubble.style.opacity = '1';
-      setTimeout(() => {
-        if(!llama.matches(':hover')) {
-            bubble.style.opacity = '0';
-        }
-      }, 2000);
-    });
+    // 2. 设置初始位置和速度
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    
+    // 速度：值越大跑得越快。可以改成 2 或 3 测试
+    let vx = 1; 
+    let vy = 1; 
+    
+    const llamaWidth = 64;
+    const llamaHeight = 64;
+
+    // 3. 动画循环
+    function moveLlama() {
+      // 窗口尺寸（防止改变窗口大小后小马跑出界）
+      const maxX = window.innerWidth - llamaWidth;
+      const maxY = window.innerHeight - llamaHeight;
+
+      // 更新坐标
+      x += vx;
+      y += vy;
+
+      // 边界碰撞检测（碰到边缘反弹）
+      if (x <= 0) {
+        x = 0;
+        vx = -vx; // 向右走
+      } else if (x >= maxX) {
+        x = maxX;
+        vx = -vx; // 向左走
+      }
+
+      if (y <= 0) {
+        y = 0;
+        vy = -vy; // 向下走
+      } else if (y >= maxY) {
+        y = maxY;
+        vy = -vy; // 向上走
+      }
+
+      // 改变小马朝向（如果向左走，就水平翻转图片）
+      if (vx < 0) {
+        llama.style.transform = 'scaleX(1)'; // 原图朝左或朝右取决于你的画
+      } else {
+        llama.style.transform = 'scaleX(-1)'; 
+      }
+
+      // 应用新坐标
+      llama.style.left = x + 'px';
+      llama.style.top = y + 'px';
+
+      // 请求下一帧
+      requestAnimationFrame(moveLlama);
+    }
+
+    // 启动动画
+    moveLlama();
   });
 </script>
