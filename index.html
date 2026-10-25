@@ -5,19 +5,23 @@ navbar_title: Home
 ---
 
 <style>
-  /* ================= 轨道小马样式 ================= */
+  /* ================= 随机高度折返小马样式 ================= */
   #llama-container {
-    position: absolute; /* 绝对定位，跟着页面滚动 */
+    position: fixed; /* 固定在屏幕视口（这样它不用跟着页面滚动） */
     z-index: 9999; 
-    pointer-events: none; /* 鼠标穿透，不挡阅读 */
-    transition: top 0.5s ease-in-out; /* 换行的时候平滑滑过去 */
+    pointer-events: none; /* 鼠标穿透，不挡点击 */
+    /* 初始位置定在屏幕外 */
+    left: -100px; 
+    top: 100px;
+    /* 切换到新高度时的平滑过渡 */
+    transition: top 1.5s ease-in-out; 
   }
 
   #wandering-llama {
     width: 64px; 
-    image-rendering: pixelated; 
+    image-rendering: pixelated; /* 保持像素锐利 */
     display: block;
-    animation: float 2s ease-in-out infinite; /* 跑动时的轻微上下浮动 */
+    transition: transform 0.2s ease-in-out; /* 翻转时的平滑过渡 */
   }
 
   /* 粉色气泡 */
@@ -48,12 +52,6 @@ navbar_title: Home
     border-width: 5px;
     border-style: solid;
     border-color: #fce4ec transparent transparent transparent;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
   }
 </style>
 
@@ -91,7 +89,7 @@ navbar_title: Home
     </div>
 </div>
 
-<!-- ================= 轨道跑酷小马引擎 (JS) ================= -->
+<!-- ================= 随机高度折返小马引擎 (JS) ================= -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const container = document.createElement('div');
@@ -102,98 +100,81 @@ navbar_title: Home
     
     const llama = document.createElement('img');
     llama.id = 'wandering-llama';
-    llama.src = '/assets/images/horse.png'; // ⚠️ 确保路径正确
+    llama.src = '/assets/images/horse.png'; // ⚠️ 确保图片路径正确
     
     container.appendChild(bubble);
     container.appendChild(llama);
-    
-    // 挂载到主容器
-    const mainContainer = document.querySelector('.container') || document.body;
-    mainContainer.appendChild(container);
+    document.body.appendChild(container);
 
-    const messages = ["Baa!", "Cite more papers!", "Need funding!", "Reviewer 2 is here.", "Coffee time?"];
+    // 运动参数
+    let x = -100; 
+    let speed = 1.5; // 移动速度
+    const llamaWidth = 64;
+    let lastTime = 0;
+    let isMovingRight = true;
 
-    let currentX = -100; // 初始位置在屏幕外
-    let speed = 1.5; // 跑动速度
-    let currentTrackIndex = 0; // 当前在第几条轨道上
-    let tracks = []; // 存放所有文字行位置
+    const messages = ["Baa!", "Cite more papers!", "Need funding!", "Reviewer 2 is here.", "Take a break :>"];
+    const faceLeft = 'scaleX(1)';  
+    const faceRight = 'scaleX(-1)'; 
 
-    // 1. 扫描页面上的“文字轨道”
-    function scanTracks() {
-        tracks = [];
-        // 抓取所有带有实际文字的 <p> 标签（你可以根据你的网页结构修改选择器）
-        const paragraphs = document.querySelectorAll('.card-body p, .publication-item, .list-group-item');
+    // 随机生成一个新的垂直高度 (Y轴)
+    function setRandomHeight() {
+        // 减去100是为了防止小马跑到屏幕最顶上或最底下看不见
+        const maxY = window.innerHeight - 100; 
+        // 随机高度在 100 到 maxY 之间
+        const randomY = Math.floor(Math.random() * (maxY - 100)) + 100; 
         
-        paragraphs.forEach(p => {
-            const rect = p.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // 只要这个元素有高度且不是隐藏的，就把它当成一条轨道
-            if (rect.height > 0) {
-                tracks.push({
-                    // 让小马出现在这行文字下方一点点，不遮挡文字
-                    top: rect.top + scrollTop + rect.height - 10, 
-                    // 跑道的宽度（从左边跑到右边）
-                    maxWidth: rect.width 
-                });
-            }
-        });
-
-        // 如果页面没加载完或者没找到文字，给个备用位置
-        if (tracks.length === 0) {
-            tracks.push({ top: 300, maxWidth: window.innerWidth - 100 });
-        }
+        // 应用高度，因为有 CSS 的 transition，它会平滑地滑行过去
+        container.style.top = randomY + 'px';
     }
 
-    // 初始化扫描
-    scanTracks();
-    // 窗口大小改变时重新扫描
-    window.addEventListener('resize', scanTracks);
+    function moveLlama(timestamp) {
+      const maxX = window.innerWidth - llamaWidth;
+      
+      // 根据方向更新位置
+      if (isMovingRight) {
+          x += speed;
+      } else {
+          x -= speed;
+      }
 
-    function moveLlama() {
-        // 如果还没初始化，先等等
-        if (tracks.length === 0) {
-            requestAnimationFrame(moveLlama);
-            return;
-        }
+      // ================= 核心逻辑：碰壁翻转与换行 =================
+      if (x >= maxX) {
+          // 跑到最右边了
+          x = maxX; 
+          isMovingRight = false; // 改为向左跑
+          llama.style.transform = faceLeft; // 翻转朝向
+          
+      } else if (x <= 0) {
+          // 跑到最左边了
+          x = 0; 
+          isMovingRight = true; // 改为向右跑
+          llama.style.transform = faceRight; // 翻转朝向
+          
+          // 🌟 关键：每次跑到最左边，就随机换一条水平线（新的高度）
+          setRandomHeight(); 
+      }
+      // =====================================================
+      
+      // 应用新坐标
+      container.style.left = x + 'px';
 
-        const currentTrack = tracks[currentTrackIndex];
-        
-        // 每次切换轨道时，更新 Y 坐标
-        container.style.top = currentTrack.top + 'px';
+      // 随机气泡逻辑
+      if (timestamp - lastTime > 4000) {
+          if (Math.random() > 0.3) {
+              const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+              bubble.textContent = randomMsg;
+              bubble.style.opacity = '1'; 
+              setTimeout(() => { bubble.style.opacity = '0'; }, 2000);
+          }
+          lastTime = timestamp;
+      }
 
-        // 往前跑
-        currentX += speed;
-        container.style.left = currentX + 'px';
-        
-        // 默认朝向右边跑
-        llama.style.transform = 'scaleX(-1)';
-
-        // ================= 核心逻辑：跑完一行怎么办 =================
-        // 如果跑出了当前这一行的宽度（或者跑出了屏幕）
-        if (currentX > Math.min(currentTrack.maxWidth, window.innerWidth - 60)) {
-            
-            // 1. 瞬间回到左边缘（或者你可以让它平滑地走回去）
-            currentX = -100; 
-            
-            // 2. 随机选择下一条轨道
-            const nextIndex = Math.floor(Math.random() * tracks.length);
-            currentTrackIndex = nextIndex;
-
-            // 3. 跑完一行有几率说话
-            if (Math.random() > 0.5) {
-                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-                bubble.textContent = randomMsg;
-                bubble.style.opacity = '1'; 
-                
-                setTimeout(() => { bubble.style.opacity = '0'; }, 2000);
-            }
-        }
-
-        requestAnimationFrame(moveLlama);
+      requestAnimationFrame(moveLlama);
     }
 
-    // 启动跑酷
+    // 初始化朝向并启动
+    llama.style.transform = faceRight; 
     requestAnimationFrame(moveLlama);
   });
 </script>
