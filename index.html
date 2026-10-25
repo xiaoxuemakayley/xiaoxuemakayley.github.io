@@ -7,38 +7,38 @@ navbar_title: Home
 <style>
   /* ================= 随机高度折返小马样式 ================= */
   #llama-container {
-    position: fixed; /* 固定在屏幕视口（这样它不用跟着页面滚动） */
+    position: fixed; 
     z-index: 9999; 
-    pointer-events: none; /* 鼠标穿透，不挡点击 */
-    /* 初始位置定在屏幕外 */
+    pointer-events: none; 
     left: -100px; 
     top: 100px;
-    /* 切换到新高度时的平滑过渡 */
     transition: top 1.5s ease-in-out; 
   }
 
   #wandering-llama {
-    width: 64px; 
-    image-rendering: pixelated; /* 保持像素锐利 */
+    /* 这里修改了大小：宽度改为 40px，高度自适应防止变形 */
+    width: 40px; 
+    height: auto;
+    image-rendering: pixelated; 
     display: block;
-    transition: transform 0.2s ease-in-out; /* 翻转时的平滑过渡 */
+    transition: transform 0.2s ease-in-out; 
   }
 
-  /* 粉色气泡 */
+  /* 粉色气泡（尺寸也可以稍微改小一点匹配小马） */
   .llama-bubble {
     position: absolute;
-    bottom: 70px; 
+    bottom: 45px; /* 气泡位置调低一点，匹配变小后的小马 */
     left: 50%;
     transform: translateX(-50%);
     background: #fce4ec; 
     color: #d81b60; 
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 6px;
+    padding: 3px 6px; /* 内边距变小 */
+    font-size: 10px; /* 字体变小 */
+    border-radius: 4px;
     white-space: nowrap;
     font-family: monospace, sans-serif;
     font-weight: bold;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -48,8 +48,8 @@ navbar_title: Home
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    margin-left: -4px;
+    border-width: 4px;
     border-style: solid;
     border-color: #fce4ec transparent transparent transparent;
   }
@@ -106,62 +106,54 @@ navbar_title: Home
     container.appendChild(llama);
     document.body.appendChild(container);
 
-    // 运动参数
     let x = -100; 
-    let speed = 1.5; // 移动速度
-    const llamaWidth = 64;
+    let speed = 1.2; // 小马变小了，速度也可以稍微调慢一点点
+    const llamaWidth = 40; // 注意：这里要和 CSS 里的宽度保持一致
     let lastTime = 0;
     let isMovingRight = true;
 
-    const messages = ["Baa!", "Cite more papers!", "Need funding!", "Reviewer 2 is here.", "Take a break :>"];
-    const faceLeft = 'scaleX(1)';  
-    const faceRight = 'scaleX(-1)'; 
+    const messages = ["Baa!", "Cite more papers!", "Need funding!", "Reviewer 2 is here."];
+    
+    // ⚠️ 注意：因为小马变小了，这里需要合并缩放和翻转
+    // 如果原图朝右，向右跑就是 'scaleX(-1) scale(0.6)' 
+    // 这里的 0.6 是缩放比例，0.6 就是原来的 60%，你可以自己微调
+    const faceLeft = 'scaleX(1) scale(0.6)';  
+    const faceRight = 'scaleX(-1) scale(0.6)'; 
 
-    // 随机生成一个新的垂直高度 (Y轴)
     function setRandomHeight() {
-        // 减去100是为了防止小马跑到屏幕最顶上或最底下看不见
-        const maxY = window.innerHeight - 100; 
-        // 随机高度在 100 到 maxY 之间
-        const randomY = Math.floor(Math.random() * (maxY - 100)) + 100; 
-        
-        // 应用高度，因为有 CSS 的 transition，它会平滑地滑行过去
+        const maxY = window.innerHeight - 80; 
+        const randomY = Math.floor(Math.random() * (maxY - 80)) + 80; 
         container.style.top = randomY + 'px';
     }
 
     function moveLlama(timestamp) {
-      const maxX = window.innerWidth - llamaWidth;
+      // 因为图片变小了，最大宽度需要把缩小的尺寸也算进去，否则它会“隐身”在屏幕外
+      const maxX = window.innerWidth - (llamaWidth * 0.6);
       
-      // 根据方向更新位置
       if (isMovingRight) {
           x += speed;
       } else {
           x -= speed;
       }
 
-      // ================= 核心逻辑：碰壁翻转与换行 =================
+      // 碰壁翻转与换行
       if (x >= maxX) {
-          // 跑到最右边了
           x = maxX; 
-          isMovingRight = false; // 改为向左跑
-          llama.style.transform = faceLeft; // 翻转朝向
+          isMovingRight = false; 
+          llama.style.transform = faceLeft; 
           
       } else if (x <= 0) {
-          // 跑到最左边了
           x = 0; 
-          isMovingRight = true; // 改为向右跑
-          llama.style.transform = faceRight; // 翻转朝向
-          
-          // 🌟 关键：每次跑到最左边，就随机换一条水平线（新的高度）
+          isMovingRight = true; 
+          llama.style.transform = faceRight; 
           setRandomHeight(); 
       }
-      // =====================================================
       
-      // 应用新坐标
       container.style.left = x + 'px';
 
-      // 随机气泡逻辑
-      if (timestamp - lastTime > 4000) {
-          if (Math.random() > 0.3) {
+      // 随机气泡
+      if (timestamp - lastTime > 5000) { // 稍微降低说话频率，5秒一次
+          if (Math.random() > 0.4) {
               const randomMsg = messages[Math.floor(Math.random() * messages.length)];
               bubble.textContent = randomMsg;
               bubble.style.opacity = '1'; 
@@ -173,7 +165,6 @@ navbar_title: Home
       requestAnimationFrame(moveLlama);
     }
 
-    // 初始化朝向并启动
     llama.style.transform = faceRight; 
     requestAnimationFrame(moveLlama);
   });
