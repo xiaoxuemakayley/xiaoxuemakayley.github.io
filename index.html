@@ -5,16 +5,53 @@ navbar_title: Home
 ---
 
 <style>
-  /* 只横着跑的小马样式 */
-  #wandering-llama {
+  /* ================= 小马专用样式 ================= */
+  #llama-container {
     position: fixed; 
+    bottom: 10px; /* 贴着屏幕底部跑 */
+    z-index: 9999; 
+    pointer-events: none; /* 鼠标穿透，不会挡住你点击网页链接 */
+  }
+
+  #wandering-llama {
     width: 64px; 
     image-rendering: pixelated; /* 保持像素锐利 */
-    z-index: 9999; 
-    pointer-events: none; /* 鼠标穿透，不挡点击 */
-    /* 固定在屏幕最底部（距离底部 10px） */
-    bottom: 10px; 
-    left: -100px; 
+    display: block;
+    /* 使用 transition 让转身看起来更平滑 */
+    transition: transform 0.2s ease-in-out; 
+  }
+
+  /* 粉色气泡的样式 */
+  .llama-bubble {
+    position: absolute;
+    bottom: 70px; /* 把小气泡顶到小马头上 */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fce4ec; /* 粉色背景 */
+    color: #d81b60; /* 深粉色文字 */
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-family: monospace, sans-serif;
+    font-weight: bold;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    
+    /* 默认隐藏，等 JS 触发时显示 */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* 气泡底下的小尖尖（指向小马） */
+  .llama-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fce4ec transparent transparent transparent;
   }
 </style>
 
@@ -52,41 +89,76 @@ navbar_title: Home
     </div>
 </div>
 
-<!-- ================= 小马横向漫步引擎 (JS) ================= -->
+<!-- ================= 小马漫步与气泡引擎 (JS) ================= -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    const container = document.createElement('div');
+    container.id = 'llama-container';
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'llama-bubble';
+    
     const llama = document.createElement('img');
     llama.id = 'wandering-llama';
-    // ⚠️ 请确保这里的路径正确！
+    // ⚠️【注意】请确保你的图片路径是这个
     llama.src = '/assets/images/horse.png'; 
-    document.body.appendChild(llama);
+    
+    container.appendChild(bubble);
+    container.appendChild(llama);
+    document.body.appendChild(container);
 
-    let x = 0;
-    let speed = 1.2; // 修改这个数字可以改变小马的速度
+    // 运动参数
+    let x = -100; // 初始位置在屏幕外左侧
+    let speed = 1.5; // 移动速度
     const llamaWidth = 64;
+    let lastTime = 0;
 
-    function moveLlama() {
-      // 获取浏览器窗口宽度
+    const messages = ["Baa!", "Cite more papers!", "Need funding!", "Reviewer 2 is here.", "Coffee time?"];
+
+    function moveLlama(timestamp) {
       const maxX = window.innerWidth - llamaWidth;
       
-      // 每次向右移动
+      // 根据速度移动位置
       x += speed;
 
-      // 如果走出了右边界，就瞬间回到左侧重新走
-      // （或者让它往回走：if (x > maxX) speed = -speed; ）
-      if (x > maxX) {
-          x = -llamaWidth; // 从最左侧外面重新出现
+      // ================= 核心反弹逻辑 =================
+      if (x >= maxX) {
+          // 撞到右墙了
+          x = maxX; // 贴紧右边
+          speed = -Math.abs(speed); // 速度变成负数（向左走）
+          // 不翻转图片（假设原图朝右）
+          llama.style.transform = 'scaleX(1)'; 
+          
+      } else if (x <= 0) {
+          // 撞到左墙了
+          x = 0; // 贴紧左边
+          speed = Math.abs(speed); // 速度变成正数（向右走）
+          // 翻转图片（因为原图朝右，向左走需要翻转）
+          llama.style.transform = 'scaleX(-1)'; 
       }
-
-      // 如果你的小马图片本来是朝左的，现在向右走，我们就把它水平翻转
-      llama.style.transform = 'scaleX(-1)'; 
-
+      // ================================================
+      
       // 更新位置
-      llama.style.left = x + 'px';
+      container.style.left = x + 'px';
+
+      // 随机说话逻辑
+      if (timestamp - lastTime > 4000) {
+          if (Math.random() > 0.4) { // 60% 概率说话
+              const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+              bubble.textContent = randomMsg;
+              bubble.style.opacity = '1'; 
+              
+              setTimeout(() => {
+                  bubble.style.opacity = '0';
+              }, 2000);
+          }
+          lastTime = timestamp;
+      }
 
       requestAnimationFrame(moveLlama);
     }
 
-    moveLlama();
+    // 启动动画
+    requestAnimationFrame(moveLlama);
   });
 </script>
