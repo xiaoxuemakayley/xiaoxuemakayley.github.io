@@ -1,13 +1,23 @@
 ---
-layout: page
+layout: default
 title: Teaching
 permalink: /teaching/
 ---
+
+<style>
+  /* 强制隐藏模板可能自带的 Blog 或 Page 默认大标题 */
+  .page-title, .post-title, .page-header h1, .post-header h1, header h1 { 
+      display: none !important; 
+  }
+</style>
 
 <div class="container mt-4 mb-5">
     
     <!-- 白框卡片 -->
     <div class="bg-white shadow-sm rounded-xl p-4 p-md-5">
+        
+        <!-- 我们自己的大标题 -->
+        <h1 class="mb-4" style="font-weight: 700; color: #333; font-size: 2.2rem;">Teaching Experience</h1>
         
         <p class="lead mb-4">I am passionate about teaching and mentoring students in the fields of Computer Science and Software Engineering. Below is a summary of my teaching experience and courses taught.</p>
 
@@ -24,7 +34,6 @@ permalink: /teaching/
                 <ul class="mt-2">
                     <li><em>Role:</em> Course Coordinator / Lecturer / Tutor</li>
                     <li><em>Description:</em> Provide a brief description of the course (e.g., Introduction to algorithms, focusing on...).</li>
-                    <!-- 这里我用了一个 badge 样式把分数高亮出来，更显眼 -->
                     <li><em>Evaluation:</em> <span class="badge bg-success text-white">4.22~4.45 / 5</span></li>
                 </ul>
             </li>
@@ -99,6 +108,4 @@ permalink: /teaching/
         <p>My philosophy centers on <strong>active learning</strong> and <strong>having fun while doing it</strong>. I believe the best classroom is an inclusive space where asking "silly" questions is encouraged, mistakes are just part of the process, and students learn by actually doing rather than just listening.</p>
 
     </div>
-    <!-- 白框卡片结束 -->
-
 </div>
