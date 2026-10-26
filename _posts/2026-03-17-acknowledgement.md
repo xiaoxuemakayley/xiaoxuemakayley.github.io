@@ -12,7 +12,7 @@ I am passionate about teaching and mentoring students in the fields of Computer 
 
 ---
 
-# 📚 Courses Taught
+## 📚 Courses Taught
 
 ### Hong Kong Metropolitan University (HKMU)
 **Senior Lecturer / Lecturer** | *2024 - Present*
@@ -48,7 +48,7 @@ I am passionate about teaching and mentoring students in the fields of Computer 
 
 ---
 
-# 🎓 Student Supervision
+## 🎓 Student Supervision
 
 **Ph.D. Students**
 - [Sun Yicheng] (Co-supervised with Prof. Jacky Keung), 2025 - Present. *Research Topic: AI for SE, AI for Education*
@@ -63,7 +63,7 @@ I am passionate about teaching and mentoring students in the fields of Computer 
   
 ---
 
-# 💡 Teaching Philosophy
+## 💡 Teaching Philosophy
 
 >"Teaching is not just about transferring knowledge, but debugging mindsets and inspiring curiosity."
 
