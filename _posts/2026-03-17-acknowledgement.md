@@ -1,6 +1,7 @@
 ---
 layout: blog_post
 title: 'Teaching Experience' 
+date: 2026-01-01
 tags:
   - Teaching
   - Academic
