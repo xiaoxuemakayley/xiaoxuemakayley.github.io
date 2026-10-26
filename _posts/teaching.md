@@ -18,13 +18,13 @@ I am passionate about teaching and mentoring students in the fields of Computer 
 ### Hong Kong Metropolitan University (HKMU)
 **Senior Lecturer / Lecturer** | *2024 - Present*
 
-- **[Course Code] Course Name** (Undergraduate)
-  - *Role:* Primary Instructor
+- **[COMP 4930SEF/S493F/S493W] Deep Learning** (Undergraduate)
+  - *Role:* Course Coordinator / Lecturer / Tutor 
   - *Description:* Provide a brief description of the course (e.g., Introduction to algorithms, focusing on...).
   - *Highlights:* Mention any special projects, student feedback, or innovative teaching methods you used.
 
-- **[Course Code] Course Name** (Postgraduate)
-  - *Role:* Co-Instructor / Guest Lecturer
+- **[GEN 1000SEF/S100F] Mathmatics in Daily Life** (Undergraduate)
+  - *Role:* Course Coordinator/ Lecturer / Tutor
   - *Description:* Brief description of the module.
 
 ### City University of Hong Kong (CityU)
