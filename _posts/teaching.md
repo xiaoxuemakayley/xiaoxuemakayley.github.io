@@ -2,12 +2,12 @@
 ---
 layout: blog_post
 title: 'Teaching Experience'
-date: 2026-01-01
+date: 2025-10-24
 tags:
-  - Blog
-  - Post
-  - Tag
+  - Teaching
+  - Academic
 ---
+
 
 I am passionate about teaching and mentoring students in the fields of Computer Science and Software Engineering. Below is a summary of my teaching experience and courses taught.
 
