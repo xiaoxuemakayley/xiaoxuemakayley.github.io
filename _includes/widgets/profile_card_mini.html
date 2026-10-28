@@ -25,10 +25,16 @@
                 <div class="row">
                     <div class="col text-center h4">
                         {{ site.data.profile.primary_name }}
+                        <!-- 👇 加上了中文名显示，字号稍微小一点，颜色淡一点 👇 -->
+                        {% if site.data.profile.secondary_name %}
+                        <div class="mt-1" style="font-size: 1rem; color: #666; font-weight: 400;">
+                            {{ site.data.profile.secondary_name }}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
 
-                <div class="row small">
+                <div class="row small mt-2">
                     <div class="col text-center">
                         {% for position in site.data.profile.positions %}
                         {{ position.name }}<br/>
